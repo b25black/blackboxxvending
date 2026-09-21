@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Black Boxx Vending – BBV Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              neon: '#2563EB',
+              'neon-dark': '#1a4fc7',
+              'neon-glow': 'rgba(37,99,235,0.4)',
+              'neon-subtle': 'rgba(37,99,235,0.12)',
+              surface: '#111111',
+              bg: '#0a0a0a',
+              'bg-alt': '#0d0d0d',
+              'bg-deep': '#050505',
+              chrome: '#c0c0c0',
+              muted: '#888888',
+              'text-main': '#f0f0f0',
+            },
+            fontFamily: {
+              display: ["'Orbitron'", 'sans-serif'],
+              body: ["'Inter'", 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <style>
+      :root {
+        --color-bg: #0a0a0a;
+        --color-surface: #111111;
+        --color-neon: #2563EB;
+        --color-neon-glow: rgba(37,99,235,0.4);
+        --color-neon-subtle: rgba(37,99,235,0.12);
+        --color-chrome: #c0c0c0;
+        --color-text: #f0f0f0;
+        --color-muted: #888888;
+        --font-display: 'Orbitron', sans-serif;
+        --font-body: 'Inter', sans-serif;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+
+      body {
+        background: var(--color-bg);
+        color: var(--color-text);
+        font-family: var(--font-body);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* ===== NAV ===== */
+      #main-nav-a1b2 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(10,10,10,0.85);
+        border-bottom: 1px solid rgba(37,99,235,0.2);
+        transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;
+      }
+      #main-nav-a1b2.scrolled {
+        background: rgba(10,10,10,0.65);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom-color: rgba(37,99,235,0.35);
+      }
+
+      .nav-link-glow {
+        position: relative;
+        color: #ccc;
+        text-decoration: none;
+        font-family: var(--font-body);
+        font-weight: 500;
+        font-size: 0.875rem;
+        letter-spacing: 0.05em;
+        transition: color 0.3s;
+        padding-bottom: 2px;
+      }
+      .nav-link-glow::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--color-neon);
+        box-shadow: 0 0 8px var(--color-neon-glow);
+        transition: width 0.3s, left 0.3s;
+      }
+      .nav-link-glow:hover {
+        color: var(--color-neon);
+      }
+      .nav-link-glow:hover::after {
+        width: 100%;
+        left: 0;
+      }
+
+      .logo-glow {
+        color: var(--color-neon);
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.5rem;
+        text-shadow: 0 0 10px var(--color-neon-glow), 0 0 30px rgba(37,99,235,0.15);
+        letter-spacing: 0.15em;
+      }
+
+      /* ===== HERO GRID ===== */
+      .hero-grid-bg {
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(circle, rgba(37,99,235,0.12) 1px, transparent 1px);
+        background-size: 40px 40px;
+        animation: gridPulse 8s ease-in-out infinite;
+      }
+      @keyframes gridPulse {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.7; }
+      }
+
+      /* ===== NEON GLOW TEXT (default - royal blue) ===== */
+      .neon-text {
+        background: linear-gradient(135deg, #2563EB, #4f8aff, #2563EB);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 12px rgba(37,99,235,0.4));
+      }
+
+      /* ===== HERO "FUTURE" — preserved original neon-blue gradient ===== */
+      .neon-text-original {
+        background: linear-gradient(135deg, #00BFFF, #0FF, #00BFFF) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        filter: drop-shadow(0 0 12px rgba(0,191,255,0.4)) !important;
+      }
+
+      /* ===== BUTTONS ===== */
+      .btn-neon-solid {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--color-neon);
+        color: #fff;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        padding: 14px 28px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: box-shadow 0.3s, transform 0.2s;
+        text-decoration: none;
+        min-height: 44px;
+        min-width: 44px;
+      }
+      .btn-neon-solid:hover {
+        box-shadow: 0 0 20px var(--color-neon-glow), 0 0 40px rgba(37,99,235,0.2);
+        transform: translateY(-2px);
+      }
+
+      .btn-neon-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        color: var(--color-neon);
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        padding: 14px 28px;
+        border: 2px solid var(--color-neon);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: box-shadow 0.3s, transform 0.2s, background 0.3s;
+        text-decoration: none;
+        min-height: 44px;
+        min-width: 44px;
+      }
+      .btn-neon-outline:hover {
+        box-shadow: 0 0 20px var(--color-neon-glow), 0 0 40px rgba(37,99,235,0.2);
+        transform: translateY(-2px);
+        background: rgba(37,99,235,0.08);
+      }
+
+      /* ===== STAT PILLS ===== */
+      .stat-pill {
+        background: rgba(17,17,17,0.8);
+        border: 1px solid rgba(37,99,235,0.3);
+        border-radius: 999px;
+        padding: 8px 20px;
+        font-size: 0.8rem;
+        color: #ccc;
+        white-space: nowrap;
+      }
+
+      /* ===== SECTION TITLE UNDERLINE ===== */
+      .section-underline {
+        width: 60px;
+        height: 3px;
+        background: var(--color-neon);
+        box-shadow: 0 0 10px var(--color-neon-glow);
+        margin: 12px auto 0;
+        border-radius: 2px;
+      }
+
+      /* ===== SERVICE CARDS ===== */
+      .service-card {
+        background: var(--color-surface);
+        border: 1px solid rgba(37,99,235,0.2);
+        border-radius: 12px;
+        padding: 32px 24px;
+        transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      }
+      .service-card:hover {
+        border-color: var(--color-neon);
+        box-shadow: 0 0 20px rgba(37,99,235,0.15), inset 0 0 20px rgba(37,99,235,0.05);
+        transform: translateY(-4px);
+      }
+
+      /* ===== BENEFIT CHECKMARK ===== */
+      .benefit-check {
+        flex-shrink: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(37,99,235,0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-neon);
+        font-size: 14px;
+        margin-top: 2px;
+      }
+
+      /* ===== DIAGONAL CHROME STRIPE ===== */
+      .chrome-stripe-bg {
+        background:
+          repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 80px,
+            rgba(192,192,192,0.015) 80px,
+            rgba(192,192,192,0.015) 82px
+          ),
+          #0d0d0d;
+      }
+
+      /* ===== CONTACT PILL ===== */
+      .contact-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(17,17,17,0.6);
+        border: 1px solid rgba(37,99,235,0.15);
+        border-radius: 999px;
+        padding: 10px 20px;
+        font-size: 0.85rem;
+        color: #bbb;
+      }
+
+      /* ===== SCROLL REVEAL ===== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ===== MOBILE MENU ===== */
+      #mobile-menu-x7k9 {
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+      #mobile-menu-x7k9.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      #mobile-menu-x7k9:not(.hidden) {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .mobile-nav-link {
+        display: block;
+        color: var(--color-text);
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        padding: 16px 0;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(37,99,235,0.1);
+        transition: color 0.3s;
+      }
+      .mobile-nav-link:hover {
+        color: var(--color-neon);
+      }
+
+      /* ===== HAMBURGER ICON ===== */
+      .hamburger-bar {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--color-neon);
+        transition: transform 0.3s, opacity 0.3s;
+        border-radius: 1px;
+      }
+      .hamburger-open .hamburger-bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .hamburger-open .hamburger-bar:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger-open .hamburger-bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+
+      /* ===== HERO TWO-COLUMN LAYOUT ===== */
+      .hero-two-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        width: 100%;
+      }
+      @media (min-width: 768px) {
+        .hero-two-col {
+          flex-direction: row;
+          align-items: center;
+          gap: 60px;
+        }
+        .hero-col-left {
+          text-align: left !important;
+        }
+        .hero-col-left .hero-buttons-wrap {
+          justify-content: flex-start;
+        }
+        .hero-col-left .hero-pills-wrap {
+          justify-content: flex-start;
+        }
+      }
+      .hero-col-left {
+        flex: 1;
+        text-align: center;
+        min-width: 0;
+      }
+      .hero-col-right {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+
+      /* ===== UPLOAD ZONE ===== */
+      .upload-zone {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        border: 2px dashed rgba(37,99,235,0.5);
+        border-radius: 16px;
+        background: #111111;
+        padding: 48px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+        min-height: 340px;
+      }
+      .upload-zone:hover,
+      .upload-zone.drag-over {
+        border-color: #2563EB;
+        background: rgba(37,99,235,0.04);
+        box-shadow: 0 0 30px rgba(37,99,235,0.15);
+      }
+      .upload-zone .upload-icon {
+        font-size: 3.5rem;
+        margin-bottom: 16px;
+        line-height: 1;
+      }
+      .upload-zone .upload-title {
+        font-family: var(--font-display);
+        color: var(--color-neon);
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+      .upload-zone .upload-subtitle {
+        font-family: var(--font-body);
+        color: var(--color-muted);
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+        text-align: center;
+      }
+      .upload-zone .upload-formats {
+        font-family: var(--font-body);
+        color: rgba(136,136,136,0.6);
+        font-size: 0.7rem;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      /* ===== UPLOADED IMAGE DISPLAY ===== */
+      .uploaded-image-wrapper {
+        width: 100%;
+        max-width: 480px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .uploaded-image-wrapper img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: 520px;
+        border-radius: 16px;
+        object-fit: cover;
+        box-shadow: 0 0 40px rgba(37,99,235,0.5);
+      }
+      .change-photo-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: transparent;
+        color: var(--color-neon);
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        padding: 10px 20px;
+        border: 1px solid rgba(37,99,235,0.4);
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background 0.3s, box-shadow 0.3s;
+        min-height: 44px;
+        min-width: 44px;
+      }
+      .change-photo-btn:hover {
+        background: rgba(37,99,235,0.08);
+        box-shadow: 0 0 12px rgba(37,99,235,0.2);
+      }
+
+      /* ===== IMAGE ACTION BUTTONS ROW ===== */
+      .image-action-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+      }
+      @media (min-width: 480px) {
+        .image-action-buttons {
+          flex-direction: row;
+          justify-content: center;
+        }
+      }
+      .download-with-image-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: var(--color-neon);
+        color: #fff;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: box-shadow 0.3s, transform 0.2s;
+        min-height: 44px;
+        min-width: 44px;
+      }
+      .download-with-image-btn:hover {
+        box-shadow: 0 0 20px var(--color-neon-glow), 0 0 40px rgba(37,99,235,0.2);
+        transform: translateY(-2px);
+      }
+
+      /* ===== FAQ STATIC LIST ===== */
+      .faq-item {
+        background: var(--color-surface);
+        border: 1px solid rgba(37,99,235,0.2);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        padding: 24px;
+      }
+      .faq-item:hover {
+        border-color: rgba(37,99,235,0.45);
+        box-shadow: 0 0 20px rgba(37,99,235,0.1);
+      }
+      .faq-question-text {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+        color: var(--color-neon);
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+      @media (min-width: 768px) {
+        .faq-question-text {
+          font-size: 0.85rem;
+        }
+      }
+      .faq-answer-content {
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        color: var(--color-muted);
+        line-height: 1.75;
+        border-top: 1px solid rgba(37,99,235,0.1);
+        padding-top: 16px;
+      }
+    </style>
+  </head>
+  <body data-id="0">
+    <app-icon data-id="1" hidden data-icon="box" data-palette="Dark"></app-icon>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav data-id="2" id="main-nav-a1b2" class="px-4 md:px-8">
+      <div data-id="3" class="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20">
+        <a data-id="4" href="#home" class="logo-glow" id="logo-link-c3d4">BBV</a>
+
+        <!-- Desktop Nav -->
+        <div data-id="5" class="hidden md:flex items-center gap-8" id="desktop-nav-e5f6">
+          <a data-id="6" href="#home" class="nav-link-glow" data-nav="home">HOME</a>
+          <a data-id="7" href="#services" class="nav-link-glow" data-nav="services">SERVICES</a>
+          <a data-id="8" href="#host" class="nav-link-glow" data-nav="host">HOST WITH US</a>
+          <a data-id="9" href="#faq" class="nav-link-glow" data-nav="faq">FAQ</a>
+          <a data-id="10" href="#contact" class="nav-link-glow" data-nav="contact">CONTACT</a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button data-id="11" id="hamburger-btn-g7h8" class="md:hidden p-2 flex flex-col gap-[6px] min-h-[44px] min-w-[44px] items-center justify-center" aria-label="Open menu">
+          <span data-id="12" class="hamburger-bar"></span>
+          <span data-id="13" class="hamburger-bar"></span>
+          <span data-id="14" class="hamburger-bar"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div data-id="15" id="mobile-menu-x7k9" class="hidden fixed inset-0 bg-bg z-[200] flex flex-col p-6 pt-4">
+      <div data-id="16" class="flex items-center justify-between mb-10">
+        <span data-id="17" class="logo-glow text-xl">BBV</span>
+        <button data-id="18" id="mobile-close-btn-i9j0" class="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Close menu">
+          <i data-id="19" data-lucide="x" class="w-7 h-7 text-neon"></i>
+        </button>
+      </div>
+      <nav data-id="20" class="flex flex-col">
+        <a data-id="21" href="#home" class="mobile-nav-link" data-mobile-nav="home">HOME</a>
+        <a data-id="22" href="#services" class="mobile-nav-link" data-mobile-nav="services">SERVICES</a>
+        <a data-id="23" href="#host" class="mobile-nav-link" data-mobile-nav="host">HOST WITH US</a>
+        <a data-id="24" href="#faq" class="mobile-nav-link" data-mobile-nav="faq">FAQ</a>
+        <a data-id="25" href="#contact" class="mobile-nav-link" data-mobile-nav="contact">CONTACT</a>
+      </nav>
+      <div data-id="26" class="mt-auto pt-8 text-center">
+        <p data-id="27" class="text-muted text-sm font-body">Black Boxx Vending</p>
+        <p data-id="28" class="text-neon text-xs font-display mt-1 tracking-widest">BOLD. SMART. CONVENIENT.</p>
+      </div>
+    </div>
+
+    <main data-id="29">
+      <!-- ===== SECTION 1: HERO ===== -->
+      <section data-id="30" id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-20">
+        <div data-id="31" class="hero-grid-bg"></div>
+        <div data-id="32" class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg"></div>
+
+        <div data-id="33" class="relative z-10 px-5 max-w-7xl mx-auto w-full">
+          <div data-id="34" class="hero-two-col">
+            <!-- LEFT COLUMN: Text Content -->
+            <div data-id="35" class="hero-col-left">
+              <p data-id="36" id="eyebrow-k1l2" class="font-display text-neon text-[0.65rem] md:text-xs tracking-[0.3em] uppercase mb-6 reveal">
+                PREMIUM VENDING SOLUTIONS
+              </p>
+
+              <h1 data-id="37" id="hero-headline-m3n4" class="font-display font-900 text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-6 reveal" style="transition-delay:0.1s">
+                <span data-id="38" class="block text-text-main">THE</span>
+                <span data-id="39" class="block neon-text-original">FUTURE</span>
+                <span data-id="40" class="block text-text-main">OF VENDING</span>
+                <span data-id="41" class="block text-text-main">IS HERE</span>
+              </h1>
+
+              <p data-id="42" id="hero-sub-o5p6" class="font-body text-muted text-sm md:text-base lg:text-lg max-w-2xl mb-10 leading-relaxed reveal" style="transition-delay:0.2s">
+                The machine is re-stocked and serviced by the BBV.
+              </p>
+
+              <div data-id="43" class="flex flex-col sm:flex-row items-center justify-center hero-buttons-wrap gap-4 mb-12 reveal" style="transition-delay:0.3s">
+                <a data-id="44" href="#contact" class="btn-neon-solid" id="cta-primary-q7r8">GET YOUR LOCATION STARTED</a>
+                <a data-id="45" href="#services" class="btn-neon-outline" id="cta-secondary-s9t0">EXPLORE SERVICES</a>
+              </div>
+
+              <div data-id="46" class="flex flex-wrap items-center justify-center hero-pills-wrap gap-3 reveal" style="transition-delay:0.4s">
+                <span data-id="47" class="stat-pill">💳 Cashless Payments</span>
+                <span data-id="48" class="stat-pill">📡 24/7 Remote Monitoring</span>
+                <span data-id="49" class="stat-pill">🛒 Customized Inventory</span>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Photo Upload Zone -->
+            <div data-id="50" class="hero-col-right reveal" style="transition-delay:0.3s">
+              <!-- Upload Zone (hidden by default) -->
+              <div data-id="51" id="upload-zone-wrapper" class="w-full flex items-center justify-center" style="display:none;">
+                <div data-id="52" id="photo-upload-zone" class="upload-zone">
+                  <div data-id="53" class="upload-icon">📷</div>
+                  <div data-id="54" class="upload-title">UPLOAD YOUR MACHINE PHOTO</div>
+                  <div data-id="55" class="upload-subtitle">Click or drag &amp; drop your image here</div>
+                  <div data-id="56" class="upload-formats">PNG, JPG, WEBP supported</div>
+                  <button data-id="57" id="upload-btn-trigger" class="btn-neon-solid" type="button" style="font-size:0.75rem; padding:12px 24px;">UPLOAD PHOTO</button>
+                </div>
+              </div>
+
+              <!-- Uploaded Image Display (shown by default) -->
+              <div data-id="58" id="uploaded-image-display" class="uploaded-image-wrapper" style="display:flex;">
+                <img data-id="59" id="uploaded-image-preview" src="vending.jpg" alt="Uploaded vending machine photo" />
+              </div>
+
+              <!-- Hidden File Input -->
+              <input data-id="60" type="file" id="hero-file-input" accept="image/png,image/jpeg,image/webp,image/*" style="display:none;" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 2: SERVICES ===== -->
+      <section data-id="61" id="services" class="py-20 md:py-28 px-5" style="background: var(--color-bg)">
+        <div data-id="62" class="max-w-6xl mx-auto">
+          <div data-id="63" class="text-center mb-16 reveal">
+            <h2 data-id="64" id="services-title-u1v2" class="font-display text-neon text-xl md:text-2xl lg:text-3xl font-bold tracking-wide">
+              WHAT WE OFFER
+            </h2>
+            <div data-id="65" class="section-underline"></div>
+            <p data-id="66" id="services-sub-w3x4" class="font-body text-muted mt-5 text-sm md:text-base max-w-2xl mx-auto">
+              The machine is re-stocked and serviced by the BBV.
+            </p>
+          </div>
+
+          <div data-id="67" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="services-grid-y5z6">
+            <!-- Card 1 -->
+            <div data-id="68" class="service-card text-center reveal">
+              <div data-id="69" class="text-4xl mb-4 flex items-center justify-center text-neon"><svg data-id="70" xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer body -->
+  <rect data-id="71" x="4" y="2" width="16" height="20" rx="2"/>
+  <!-- Display/screen area -->
+  <rect data-id="72" x="6" y="4" width="12" height="6" rx="1"/>
+  <!-- Product slots row 1 -->
+  <rect data-id="73" x="6" y="12" width="5" height="3" rx="0.5"/>
+  <rect data-id="74" x="13" y="12" width="5" height="3" rx="0.5"/>
+  <!-- Product slots row 2 -->
+  <rect data-id="75" x="6" y="16" width="5" height="3" rx="0.5"/>
+  <rect data-id="76" x="13" y="16" width="5" height="3" rx="0.5"/>
+  <!-- Coin slot -->
+  <line data-id="77" x1="17" y1="6" x2="17" y2="8"/>
+  <!-- Display line -->
+  <line data-id="78" x1="7" y1="6.5" x2="14" y2="6.5"/>
+  <line data-id="79" x1="7" y1="8" x2="12" y2="8"/>
+</svg></div>
+              <h3 data-id="80" class="font-display text-text-main text-sm md:text-base font-semibold tracking-wide mb-3">MACHINE PLACEMENT</h3>
+              <p data-id="81" class="font-body text-muted text-sm leading-relaxed">We handle site surveys and machine installation at your location — fast, clean, and professional.</p>
+            </div>
+            <!-- Card 2 -->
+            <div data-id="82" class="service-card text-center reveal" style="transition-delay:0.1s">
+              <div data-id="83" class="text-4xl mb-4">🛒</div>
+              <h3 data-id="84" class="font-display text-text-main text-sm md:text-base font-semibold tracking-wide mb-3">PRODUCT CURATION</h3>
+              <p data-id="85" class="font-body text-muted text-sm leading-relaxed">Custom-stocked with snacks, beverages, and specialty items tailored to your customer base.</p>
+            </div>
+            <!-- Card 3 -->
+            <div data-id="86" class="service-card text-center reveal" style="transition-delay:0.2s">
+              <div data-id="87" class="text-4xl mb-4">📡</div>
+              <h3 data-id="88" class="font-display text-text-main text-sm md:text-base font-semibold tracking-wide mb-3">REMOTE MONITORING</h3>
+              <p data-id="89" class="font-body text-muted text-sm leading-relaxed">Real-time inventory tracking and sales data via smart technology — we restock before you run out.</p>
+            </div>
+            <!-- Card 4 -->
+            <div data-id="90" class="service-card text-center reveal" style="transition-delay:0.05s">
+              <div data-id="91" class="text-4xl mb-4">🔧</div>
+              <h3 data-id="92" class="font-display text-text-main text-sm md:text-base font-semibold tracking-wide mb-3">FULL MAINTENANCE</h3>
+              <p data-id="93" class="font-body text-muted text-sm leading-relaxed">The machine is re-stocked and serviced by the BBV.</p>
+            </div>
+            <!-- Card 6 -->
+            <div data-id="94" class="service-card text-center reveal" style="transition-delay:0.25s">
+              <div data-id="95" class="text-4xl mb-4">💳</div>
+              <h3 data-id="96" class="font-display text-text-main text-sm md:text-base font-semibold tracking-wide mb-3">CASHLESS PAYMENTS</h3>
+              <p data-id="97" class="font-body text-muted text-sm leading-relaxed">Every machine accepts credit, debit, Apple Pay, Google Pay, and more.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 3: HOST LOCATION BENEFITS ===== -->
+      <section data-id="98" id="host" class="chrome-stripe-bg py-20 md:py-28 px-5">
+        <div data-id="99" class="max-w-6xl mx-auto">
+          <div data-id="100" class="text-center mb-16 reveal">
+            <h2 data-id="101" id="host-title-a2b3" class="font-display text-text-main text-xl md:text-2xl lg:text-3xl font-bold tracking-wide">
+              WHY HOST WITH BBV?
+            </h2>
+            <div data-id="102" class="section-underline"></div>
+          </div>
+
+          <div data-id="103" class="w-full">
+            <!-- Benefits List (Full Width) -->
+            <div data-id="104" class="w-full max-w-3xl mx-auto space-y-6" id="benefits-list-e6f7">
+              <!-- Benefit 0: Convenience -->
+              <div data-id="105" class="flex items-start gap-4 reveal">
+                <div data-id="106" class="benefit-check">
+                  <i data-id="107" data-lucide="check" class="w-4 h-4"></i>
+                </div>
+                <div data-id="108">
+                  <h3 data-id="109" class="font-display text-text-main text-xs md:text-sm font-semibold tracking-wide mb-1">CONVENIENCE</h3>
+                  <p data-id="110" class="font-body text-muted text-sm">Convenient access for employees and customers looking for a quick snack or refreshing beverage.</p>
+                </div>
+              </div>
+              <!-- Benefit 1: Zero Cost -->
+              <div data-id="111" class="flex items-start gap-4 reveal">
+                <div data-id="112" class="benefit-check">
+                  <i data-id="113" data-lucide="check" class="w-4 h-4"></i>
+                </div>
+                <div data-id="114">
+                  <h3 data-id="115" class="font-display text-text-main text-xs md:text-sm font-semibold tracking-wide mb-1">ZERO COST TO YOU</h3>
+                  <p data-id="116" class="font-body text-muted text-sm">BBV covers 100% of machine cost, installation, and maintenance.</p>
+                </div>
+              </div>
+              <!-- Benefit 2: Modern Amenity -->
+              <div data-id="117" class="flex items-start gap-4 reveal" style="transition-delay:0.1s">
+                <div data-id="118" class="benefit-check">
+                  <i data-id="119" data-lucide="check" class="w-4 h-4"></i>
+                </div>
+                <div data-id="120">
+                  <h3 data-id="121" class="font-display text-text-main text-xs md:text-sm font-semibold tracking-wide mb-1">MODERN AMENITY</h3>
+                  <p data-id="122" class="font-body text-muted text-sm">A modern vending machine acts as a high-tech amenity that increases property value and customer satisfaction.</p>
+                </div>
+              </div>
+              <!-- Benefit 3: Setup -->
+              <div data-id="123" class="flex items-start gap-4 reveal" style="transition-delay:0.2s">
+                <div data-id="124" class="benefit-check">
+                  <i data-id="125" data-lucide="check" class="w-4 h-4"></i>
+                </div>
+                <div data-id="126">
+                  <h3 data-id="127" class="font-display text-text-main text-xs md:text-sm font-semibold tracking-wide mb-1">SETUP</h3>
+                  <p data-id="128" class="font-body text-muted text-sm">We handle everything from site survey to stocking.</p>
+                </div>
+              </div>
+              <!-- Benefit 4: Fully Customizable -->
+              <div data-id="129" class="flex items-start gap-4 reveal" style="transition-delay:0.3s">
+                <div data-id="130" class="benefit-check">
+                  <i data-id="131" data-lucide="check" class="w-4 h-4"></i>
+                </div>
+                <div data-id="132">
+                  <h3 data-id="133" class="font-display text-text-main text-xs md:text-sm font-semibold tracking-wide mb-1">FULLY CUSTOMIZABLE</h3>
+                  <p data-id="134" class="font-body text-muted text-sm">You control the vending machine's menu. We rotate inventory based on your specific product requests.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 3.5: FAQ (Static List) ===== -->
+      <section data-id="135" id="faq" class="py-20 md:py-28 px-5" style="background: var(--color-bg)">
+        <div data-id="136" class="max-w-3xl mx-auto">
+          <div data-id="137" class="text-center mb-16 reveal">
+            <h2 data-id="138" class="font-display text-neon text-xl md:text-2xl lg:text-3xl font-bold tracking-wide">
+              FREQUENTLY ASKED QUESTIONS
+            </h2>
+            <div data-id="139" class="section-underline"></div>
+            <p data-id="140" class="font-body text-muted mt-5 text-sm md:text-base max-w-2xl mx-auto">
+              Everything you need to know about our AI-powered smart vending machines.
+            </p>
+          </div>
+
+          <div data-id="141" class="space-y-4" id="faq-list">
+            <!-- FAQ 1 -->
+            <div data-id="142" class="faq-item reveal">
+              <h3 data-id="143" class="faq-question-text">What is an AI Vending Machine?</h3>
+              <div data-id="144" class="faq-answer-content">
+                An AI vending machine (or smart cooler) uses computer vision, cameras, and deep learning sensors to identify products automatically. Customers unlock the door via a payment method, grab any item, and close the door. The machine automatically detects what was taken and charges their account without needing product scanning or push-buttons.
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div data-id="145" class="faq-item reveal" style="transition-delay:0.05s">
+              <h3 data-id="146" class="faq-question-text">How accurate is the AI product recognition?</h3>
+              <div data-id="147" class="faq-answer-content">
+                Most modern AI vending systems achieve a 98% to 99%+ accuracy rate using trained computer vision models. If an item is incorrectly billed, cloud management software allows operators to review session footage and process refunds instantly.
+              </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div data-id="148" class="faq-item reveal" style="transition-delay:0.1s">
+              <h3 data-id="149" class="faq-question-text">What happens if a customer puts an item back?</h3>
+              <div data-id="150" class="faq-answer-content">
+                The AI tracks the customer's session in real time. If an item is picked up and then returned to the shelf before the door shuts, it is automatically removed from the running cart. The customer is charged only for what they leave with.
+              </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div data-id="151" class="faq-item reveal" style="transition-delay:0.15s">
+              <h3 data-id="152" class="faq-question-text">What happens if the machine loses internet connection?</h3>
+              <div data-id="153" class="faq-answer-content">
+                The machine is designed to handle temporary internet interruptions. Product activity and transaction details can be stored locally and synced once the connection is restored. If connectivity affects payment authorization or monitoring, the operator is alerted so service can be restored quickly.
+              </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div data-id="154" class="faq-item reveal" style="transition-delay:0.2s">
+              <h3 data-id="155" class="faq-question-text">Will the vending machine be insured?</h3>
+              <div data-id="156" class="faq-answer-content">
+                Yes. The vending machine is fully insured, providing coverage for the equipment while it is placed on-site.
+              </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div data-id="157" class="faq-item reveal" style="transition-delay:0.25s">
+              <h3 data-id="158" class="faq-question-text">Who restocks the machine and how often?</h3>
+              <div data-id="159" class="faq-answer-content">
+                The machine is re-stocked and serviced by the BBV. Restocking frequency depends on demand and product movement, but inventory is monitored remotely so popular items can be replenished before they run out.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION 4: CONTACT ===== -->
+      <section data-id="160" id="contact" class="py-20 md:py-28 px-5" style="background: var(--color-bg)">
+        <div data-id="161" class="max-w-2xl mx-auto">
+
+          <div data-id="162" class="text-center mb-12 reveal">
+            <h2 data-id="163" class="font-display text-neon text-xl md:text-2xl lg:text-3xl font-bold tracking-wide">
+              GET IN TOUCH
+            </h2>
+            <div data-id="164" class="section-underline"></div>
+            <p data-id="165" class="font-body text-muted mt-5 text-sm md:text-base max-w-2xl mx-auto">
+              Ready to add a vending machine to your location? Reach out to us anytime.
+            </p>
+          </div>
+
+          <div data-id="166" class="flex flex-wrap items-center justify-center gap-3 reveal" style="transition-delay:0.1s">
+            <span data-id="167" class="contact-pill">📞 469-526-3838</span>
+            <span data-id="168" class="contact-pill">📧 blackboxxvend@gmail.com</span>
+            <span data-id="169" class="contact-pill">📍 Cedar Hill, TX (DFW Area)</span>
+            <span data-id="170" class="contact-pill">📱 Available 7 Days a Week</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer data-id="171" class="py-12 px-5 text-center" style="background: #050505; border-top: 1px solid rgba(37,99,235,0.1)">
+      <div data-id="172" class="max-w-4xl mx-auto">
+        <p data-id="173" class="logo-glow text-2xl mb-3" id="footer-logo-e2f3">BBV</p>
+        <p data-id="174" class="font-body text-chrome text-sm mb-6">Black Boxx Vending — Bold. Smart. Convenient.</p>
+
+        <div data-id="175" class="flex flex-wrap items-center justify-center gap-6 mb-8" id="footer-nav-g4h5">
+          <a data-id="176" href="#home" class="nav-link-glow text-xs">HOME</a>
+          <a data-id="177" href="#services" class="nav-link-glow text-xs">SERVICES</a>
+          <a data-id="178" href="#host" class="nav-link-glow text-xs">HOST WITH US</a>
+          <a data-id="179" href="#faq" class="nav-link-glow text-xs">FAQ</a>
+          <a data-id="180" href="#contact" class="nav-link-glow text-xs">CONTACT</a>
+        </div>
+
+        <p data-id="181" class="font-body text-muted text-xs mb-1">© 2026 Black Boxx Vending. All rights reserved.</p>
+        <p data-id="182" class="font-body text-muted text-[0.65rem] mb-4">Serving the DFW Metroplex and beyond.</p>
+      </div>
+    </footer>
+
+    <script>
+      // ===== LUCIDE ICONS =====
+      if (typeof lucide !== "undefined" && typeof lucide.createIcons === "function") {
+        lucide.createIcons();
+      }
+
+      // ===== NAV SCROLL EFFECT =====
+      var nav = document.getElementById('main-nav-a1b2');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      });
+
+      // ===== MOBILE MENU =====
+      var hamburgerBtn = document.getElementById('hamburger-btn-g7h8');
+      var mobileMenu = document.getElementById('mobile-menu-x7k9');
+      var mobileCloseBtn = document.getElementById('mobile-close-btn-i9j0');
+
+      function openMobileMenu() {
+        mobileMenu.classList.remove('hidden');
+        hamburgerBtn.classList.add('hamburger-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+        hamburgerBtn.classList.remove('hamburger-open');
+        document.body.style.overflow = '';
+      }
+
+      hamburgerBtn.addEventListener('click', function() {
+        if (mobileMenu.classList.contains('hidden')) {
+          openMobileMenu();
+        } else {
+          closeMobileMenu();
+        }
+      });
+
+      mobileCloseBtn.addEventListener('click', closeMobileMenu);
+
+      document.querySelectorAll('[data-mobile-nav]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          closeMobileMenu();
+        });
+      });
+
+      // ===== SMOOTH SCROLL FOR NAV LINKS =====
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          var targetId = this.getAttribute('href');
+          if (targetId && targetId.length > 1) {
+            var target = document.querySelector(targetId);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      });
+
+      // ===== SCROLL REVEAL (IntersectionObserver) =====
+      var revealElements = document.querySelectorAll('.reveal');
+      var revealObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealElements.forEach(function(el) {
+        revealObserver.observe(el);
+      });
+
+      // ===== REVEAL FALLBACK =====
+      setTimeout(function() {
+        document.querySelectorAll('.reveal').forEach(function(el) {
+          el.classList.add('visible');
+        });
+      }, 300);
+
+      // ===== PHOTO UPLOAD HANDLING =====
+      (function() {
+        var uploadZone = document.getElementById('photo-upload-zone');
+        var uploadZoneWrapper = document.getElementById('upload-zone-wrapper');
+        var fileInput = document.getElementById('hero-file-input');
+        var uploadBtnTrigger = document.getElementById('upload-btn-trigger');
+        var uploadedImageDisplay = document.getElementById('uploaded-image-display');
+        var uploadedImagePreview = document.getElementById('uploaded-image-preview');
+
+        var currentImageDataUrl = '';
+
+        uploadZone.addEventListener('click', function(e) {
+          if (e.target === uploadBtnTrigger || uploadBtnTrigger.contains(e.target)) {
+            return;
+          }
+          fileInput.click();
+        });
+
+        uploadBtnTrigger.addEventListener('click', function(e) {
+          e.stopPropagation();
+          fileInput.click();
+        });
+
+        uploadZone.addEventListener('dragover', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          uploadZone.classList.add('drag-over');
+        });
+
+        uploadZone.addEventListener('dragleave', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          uploadZone.classList.remove('drag-over');
+        });
+
+        uploadZone.addEventListener('drop', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          uploadZone.classList.remove('drag-over');
+
+          var files = e.dataTransfer.files;
+          if (files && files.length > 0) {
+            handleFile(files[0]);
+          }
+        });
+
+        fileInput.addEventListener('change', function() {
+          if (fileInput.files && fileInput.files.length > 0) {
+            handleFile(fileInput.files[0]);
+          }
+        });
+
+        function handleFile(file) {
+          if (!file.type.startsWith('image/')) {
+            return;
+          }
+
+          var reader = new FileReader();
+          reader.addEventListener('load', function() {
+            var dataUrl = reader.result;
+            currentImageDataUrl = dataUrl;
+
+            uploadedImagePreview.src = dataUrl;
+            uploadedImagePreview.alt = 'Uploaded vending machine photo';
+
+            uploadZoneWrapper.style.display = 'none';
+            uploadedImageDisplay.style.display = 'flex';
+          });
+
+          reader.readAsDataURL(file);
+        }
+      })();
+    </script>
+  </body>
+</html>
