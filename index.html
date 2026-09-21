@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Black Boxx Vending | Cedar Hill, TX</title>
+  <meta name="description" content="Black Boxx Vending provides premium vending machine placement, restocking, and full maintenance services in Cedar Hill, TX and surrounding areas. Available 7 days a week." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===========================
+       CSS RESET & BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #0a0a0a;
+      --black-soft: #111111;
+      --black-card: #161616;
+      --black-alt:  #1e1e1e;
+      --gold:       #c9a84c;
+      --gold-light: #e2c06e;
+      --gold-dim:   #a0802e;
+      --white:      #f5f5f5;
+      --white-dim:  #c0c0c0;
+      --border:     rgba(201,168,76,0.25);
+      --font-head:  'Montserrat', sans-serif;
+      --font-body:  'Open Sans', sans-serif;
+      --max-w:      1100px;
+      --radius:     10px;
+      --transition: 0.3s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    a { color: var(--gold); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--gold-light); }
+
+    img { max-width: 100%; display: block; }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section { padding: 90px 0; }
+
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+
+    .section-title span { color: var(--gold); }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--white-dim);
+      max-width: 620px;
+      margin-bottom: 52px;
+    }
+
+    .gold-line {
+      width: 52px;
+      height: 3px;
+      background: var(--gold);
+      margin-bottom: 24px;
+      border-radius: 2px;
+    }
+
+    /* ===========================
+       NAV
+    =========================== */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-head);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--black) !important;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 700 !important;
+    }
+
+    .nav-cta:hover { background: var(--gold-light) !important; color: var(--black) !important; }
+
+    /* hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* ===========================
+       HERO
+    =========================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 68px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(201,168,76,0.08) 0%, transparent 65%),
+                  linear-gradient(135deg, #0a0a0a 0%, #161616 100%);
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-text { }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-family: var(--font-head);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: var(--white);
+    }
+
+    .hero-title span { color: var(--gold); display: block; }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--white-dim);
+      margin-bottom: 40px;
+      max-width: 500px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      padding: 15px 32px;
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      color: var(--black);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(201,168,76,0.35);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      padding: 13px 30px;
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: translateY(-2px);
+    }
+
+    /* Hero image placeholder */
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-image-box {
+      width: 100%;
+      aspect-ratio: 3/4;
+      max-height: 540px;
+      background: var(--black-card);
+      border: 2px dashed rgba(201,168,76,0.4);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+
+    /* SWAP THIS: replace .hero-image-box with an <img> tag pointing to your photo */
+    /* e.g. <img src="images/vending-machine.jpg" alt="Black Boxx Vending Machine" class="hero-img"> */
+
+    .hero-image-box svg { opacity: 0.4; }
+
+    .hero-image-box p {
+      font-size: 0.82rem;
+      font-family: var(--font-head);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-image-glow {
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* hero stats */
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-stat-num {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.8rem;
+      color: var(--white-dim);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ===========================
+       ABOUT / INTRO
+    =========================== */
+    #about {
+      background: var(--black-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .about-feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .about-feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.97rem;
+      color: var(--white-dim);
+    }
+
+    .about-feature-list li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 0.75rem;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .about-card {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+    }
+
+    .about-card-icon {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+    }
+
+    .about-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .about-card p { color: var(--white-dim); font-size: 0.95rem; }
+
+    .about-cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ===========================
+       WHAT WE OFFER
+    =========================== */
+    #services { background: var(--black); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 30px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+
+    .service-card:hover {
+      border-color: rgba(201,168,76,0.6);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 0.93rem;
+      color: var(--white-dim);
+      line-height: 1.65;
+    }
+
+    /* ===========================
+       FULL MAINTENANCE
+    =========================== */
+    #maintenance {
+      background: var(--black-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .maintenance-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .maintenance-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 12px;
+    }
+
+    .maintenance-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .maintenance-list li:hover {
+      border-color: rgba(201,168,76,0.5);
+    }
+
+    .maint-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .maint-text h4 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .maint-text p {
+      font-size: 0.88rem;
+      color: var(--white-dim);
+    }
+
+    .maintenance-highlight {
+      background: linear-gradient(135deg, var(--black-card), var(--black-alt));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .maintenance-highlight::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .maintenance-highlight .big-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .maintenance-highlight h3 {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .maintenance-highlight p {
+      color: var(--white-dim);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .maintenance-highlight .tag {
+      display: inline-block;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-family: var(--font-head);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 50px;
+      margin: 4px;
+    }
+
+    /* ===========================
+       FAQ
+    =========================== */
+    #faq { background: var(--black); }
+
+    .faq-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      overflow: hidden;
+      background: var(--black-card);
+      transition: border-color var(--transition);
+    }
+
+    .faq-item:hover { border-color: rgba(201,168,76,0.5); }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 26px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-head);
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--white);
+      transition: color var(--transition);
+    }
+
+    .faq-question:hover { color: var(--gold); }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      background: rgba(201,168,76,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition), background var(--transition);
+      font-size: 0.7rem;
+      color: var(--gold);
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 26px;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 26px 22px;
+    }
+
+    .faq-answer p {
+      font-size: 0.93rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    /* ===========================
+       CONTACT
+    =========================== */
+    #contact { background: var(--black-soft); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 22px;
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color var(--transition);
+    }
+
+    .contact-info-item:hover { border-color: rgba(201,168,76,0.6); }
+
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-label {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .contact-detail-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .contact-detail-value a {
+      color: var(--white);
+    }
+
+    .contact-detail-value a:hover { color: var(--gold); }
+
+    .contact-form-card {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 44px 40px;
+    }
+
+    .contact-form-card h3 {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .contact-form-card p {
+      font-size: 0.9rem;
+      color: var(--white-dim);
+      margin-bottom: 28px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-head);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--black-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      color: var(--white);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #555; }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .form-submit:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(201,168,76,0.3);
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    #footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--white-dim);
+      margin-bottom: 20px;
+    }
+
+    .footer-nav {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-nav a {
+      font-family: var(--font-head);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    .footer-nav a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: #444;
+    }
+
+    .footer-copy span { color: var(--gold); }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 900px) {
+      .hero-inner,
+      .about-grid,
+      .maintenance-inner,
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .services-grid { grid-template-columns: 1fr 1fr; }
+
+      .hero-image-wrap { order: -1; }
+
+      .hero-image-box { max-height: 340px; }
+
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: var(--black-soft); padding: 20px 24px; border-bottom: 1px solid var(--border); gap: 18px; }
+
+      .nav-links.open { display: flex; }
+
+      .nav-toggle { display: flex; }
+
+      #nav { position: relative; }
+
+      body { padding-top: 0; }
+
+      #hero { padding-top: 20px; }
+
+      .hero-stats { gap: 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .section { padding: 64px 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-outline { justify-content: center; }
+      .contact-form-card { padding: 30px 22px; }
+      .hero-stats { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== NAV ====== -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">BLACK <span>BOXX</span> VENDING</div>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#maintenance">Maintenance</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ====== HERO ====== -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-badge">Serving Cedar Hill, TX &amp; DFW</div>
+          <h1 class="hero-title">
+            Premium Vending,
+            <span>Zero Hassle.</span>
+          </h1>
+          <p class="hero-desc">
+            Fully managed vending solutions with zero hassle for location owners.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">Get a Free Placement &#8594;</a>
+            <a href="#services" class="btn-outline">See What We Offer</a>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num">7</div>
+              <div class="hero-stat-label">Days a Week</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">$0</div>
+              <div class="hero-stat-label">Cost to You</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">DFW</div>
+              <div class="hero-stat-label">Service Area</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image-wrap">
+          <!--
+            ╔══════════════════════════════════════════════════╗
+            ║  REPLACE THIS BLOCK WITH YOUR VENDING MACHINE    ║
+            ║  IMAGE:                                          ║
+            ║  <img src="images/your-photo.jpg"                ║
+            ║       alt="Black Boxx Vending Machine"           ║
+            ║       style="width:100%;border-radius:16px;">    ║
+            ╚══════════════════════════════════════════════════╝
+          -->
+          <div class="hero-image-box">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="4" width="48" height="56" rx="4" stroke="#c9a84c" stroke-width="2.5" fill="none"/>
+              <rect x="14" y="10" width="36" height="22" rx="2" stroke="#c9a84c" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+              <rect x="14" y="38" width="16" height="14" rx="2" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+              <rect x="34" y="38" width="16" height="6" rx="2" stroke="#c9a84c" stroke-width="1.5" fill="rgba(201,168,76,0.1)"/>
+              <circle cx="42" cy="50" r="3" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+              <line x1="8" y1="34" x2="56" y2="34" stroke="#c9a84c" stroke-width="1.5"/>
+            </svg>
+            <p>Add your vending machine photo here</p>
+            <div class="hero-image-glow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ABOUT ====== -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <span class="section-label">Who We Are</span>
+          <div class="gold-line"></div>
+          <h2 class="section-title">Built on <span>Reliability</span> &amp; Results</h2>
+          <p style="color:var(--white-dim); margin-bottom:16px;">
+            Black Boxx Vending is a locally owned and operated vending service based in Cedar Hill, TX. We partner with businesses, schools, gyms, offices, and more to bring convenient, quality snack and beverage options to employees, customers, and guests — completely free to the location host.
+          </p>
+          <p style="color:var(--white-dim);">
+            Our machines are modern, clean, and consistently stocked. You get the benefit without any of the work.
+          </p>
+          <ul class="about-feature-list">
+            <li>No startup costs, no contracts, no hidden fees for location hosts</li>
+            <li>Regular restocking visits scheduled around your business hours</li>
+            <li>Fast response times for any service or maintenance requests</li>
+            <li>Locally operated — real people, real accountability</li>
+          </ul>
+        </div>
+
+        <div class="about-cards-stack">
+          <div class="about-card">
+            <div class="about-card-icon">🤝</div>
+            <h3>Partner-First Approach</h3>
+            <p>We treat every location like a long-term partnership. Your satisfaction keeps our machines in the right places.</p>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon">📍</div>
+            <h3>Rooted in Cedar Hill</h3>
+            <p>We're a local DFW business — fast, responsive, and personally invested in the communities we serve.</p>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon">⚡</div>
+            <h3>Always Available</h3>
+            <p>Questions or issues? Reach us 7 days a week. We're always just a call or email away.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== WHAT WE OFFER ====== -->
+  <section id="services" class="section">
+    <div class="container">
+      <span class="section-label">What We Offer</span>
+      <div class="gold-line"></div>
+      <h2 class="section-title">Everything Your Location <span>Needs</span></h2>
+      <p class="section-sub">
+        We provide end-to-end vending solutions — from machine placement and product selection to ongoing restocking and maintenance. No effort required on your end.
+      </p>
+
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">🏢</div>
+          <h3>Free Machine Placement</h3>
+          <p>We place a fully equipped vending machine at your location at absolutely no charge. There's no cost to you as the host — we invest in the machine, you provide the space.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🔄</div>
+          <h3>Regular Restocking</h3>
+          <p>The machine is re-stocked and serviced by the BBV.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🔧</div>
+          <h3>Full Maintenance &amp; Repairs</h3>
+          <p>From routine cleaning to mechanical issues, we handle all upkeep on the machine. If something needs fixing, we respond quickly and professionally — at no cost to you.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🍫</div>
+          <h3>Product Customization</h3>
+          <p>Want specific snacks or drinks? We work with you to tailor the product selection to your location's preferences and customer base.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">💳</div>
+          <h3>Cashless Payment Ready</h3>
+          <p>Our machines accept credit cards, debit cards, and mobile payments — making transactions easy and convenient for everyone.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <h3>Performance Monitoring</h3>
+          <p>We actively track sales and usage data so we can optimize product selection and restocking frequency, ensuring your machine is always performing at its best.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FULL MAINTENANCE ====== -->
+  <section id="maintenance" class="section">
+    <div class="container">
+      <div class="maintenance-inner">
+        <div>
+          <span class="section-label">Full Maintenance</span>
+          <div class="gold-line"></div>
+          <h2 class="section-title">We Handle <span>Every Detail</span></h2>
+          <p style="color:var(--white-dim); margin-bottom:8px;">
+            All repairs, restocking, and upkeep is on us. Zero effort required from you.
+          </p>
+          <ul class="maintenance-list">
+            <li>
+              <div class="maint-icon">🧹</div>
+              <div class="maint-text">
+                <h4>Regular Cleaning</h4>
+                <p>Interior and exterior cleaning on every service visit to keep machines sanitary and presentable.</p>
+              </div>
+            </li>
+            <li>
+              <div class="maint-icon">⚙️</div>
+              <div class="maint-text">
+                <h4>Mechanical Upkeep</h4>
+                <p>Coil adjustments, motor checks, and component inspections to prevent breakdowns before they happen.</p>
+              </div>
+            </li>
+            <li>
+              <div class="maint-icon">💡</div>
+              <div class="maint-text">
+                <h4>Lighting &amp; Display</h4>
+                <p>We ensure lighting is bright and the display is fully functional so your machine always looks inviting.</p>
+              </div>
+            </li>
+            <li>
+              <div class="maint-icon">🚨</div>
+              <div class="maint-text">
+                <h4>Fast Issue Response</h4>
+                <p>Report a problem and we'll be on-site promptly. Downtime means missed sales — we take that seriously.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="maintenance-highlight">
+          <span class="big-icon">🛡️</span>
+          <h3>100% Covered by Black Boxx Vending</h3>
+          <p>
+            Every repair, every cleaning, every service call — fully covered under our maintenance agreement. You provide the space, we provide everything else. There are no surprise charges, ever.
+          </p>
+          <div>
+            <span class="tag">No Repair Bills</span>
+            <span class="tag">No Service Fees</span>
+            <span class="tag">No Contracts</span>
+            <span class="tag">7 Days a Week</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FAQ ====== -->
+  <section id="faq" class="section">
+    <div class="container">
+      <div style="text-align:center; margin-bottom:52px;">
+        <span class="section-label">FAQ</span>
+        <div class="gold-line" style="margin: 0 auto 24px;"></div>
+        <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+        <p style="color:var(--white-dim); max-width:560px; margin:0 auto;">
+          Have questions before getting started? Here are the answers to the ones we hear most.
+        </p>
+      </div>
+
+      <div class="faq-wrap">
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Is there any cost to have a vending machine placed at my location?
+            <span class="faq-chevron">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <p>No — placement is completely free for location hosts. Black Boxx Vending covers the machine, stocking, and all maintenance. You simply provide the space, and we handle everything else.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What types of locations do you work with?
+            <span class="faq-chevron">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <p>We work with a wide range of locations including offices, warehouses, gyms, schools, apartment complexes, salons, laundromats, car dealerships, and more. If you have foot traffic, we'd love to talk!</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How often will the machine be restocked?
+            <span class="faq-chevron">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <p>Restocking frequency depends on usage, but we monitor inventory regularly and schedule visits to keep the machine stocked before it runs low. High-traffic locations are serviced more frequently.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What happens if the machine breaks down or has a problem?
+            <span class="faq-chevron">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <p>Simply call or email us and we'll respond as quickly as possible — often the same day. All repairs and service calls are fully covered by Black Boxx Vending at no charge to you.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Can I request specific products for the machine?
+            <span class="faq-chevron">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <p>Absolutely! We welcome product requests. If your customers or employees have preferences, we'll do our best to accommodate them and stock the items that best match your location's needs.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do your machines accept card and mobile payments?
+            <span class="faq-chevron">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! Our machines are equipped to accept credit cards, debit cards, and mobile payment options like Apple Pay and Google Pay, in addition to cash — so customers can pay however they prefer.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Is there a long-term contract required?
+            <span class="faq-chevron">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <p>We believe in earning your business through quality service, not locking you into long-term agreements. We keep things flexible and build our partnerships on mutual value and trust.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT ====== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <span class="section-label">Contact Us</span>
+      <div class="gold-line"></div>
+      <h2 class="section-title">Let's Get a Machine <span>Working for You</span></h2>
+      <p class="section-sub">
+        Ready to add a vending machine to your location? Reach out and we'll get back to you quickly to discuss the details.
+      </p>
+
+      <div class="contact-grid">
+        <!-- Contact Info — ordered: Phone → Email → Location → Availability -->
+        <div>
+          <ul class="contact-info-list">
+
+            <li class="contact-info-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <div class="contact-detail-label">Phone</div>
+                <div class="contact-detail-value">
+                  <a href="tel:4695263838">(469) 526-3838</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="contact-info-item">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <div class="contact-detail-label">Email</div>
+                <div class="contact-detail-value">
+                  <a href="mailto:blackboxxvend@gmail.com">blackboxxvend@gmail.com</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="contact-info-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div class="contact-detail-label">Location</div>
+                <div class="contact-detail-value">Cedar Hill, TX</div>
+              </div>
+            </li>
+
+            <li class="contact-info-item">
+              <div class="contact-icon">🕐</div>
+              <div>
+                <div class="contact-detail-label">Availability</div>
+                <div class="contact-detail-value">7 Days a Week</div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-card">
+          <h3>Send Us a Message</h3>
+          <p>Fill out the form below and we'll be in touch shortly.</p>
+
+          <form action="mailto:blackboxxvend@gmail.com" method="post" enctype="text/plain">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="First &amp; Last Name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label for="location">Business / Location Name</label>
+              <input type="text" id="location" name="location" placeholder="Your business or facility name" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us a little about your location and what you're looking for..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Send Message &#8594;</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer id="footer">
+    <div class="footer-logo">BLACK <span>BOXX</span> VENDING</div>
+    <p class="footer-tagline">Premium Vending Solutions &bull; Cedar Hill, TX &bull; Available 7 Days a Week</p>
+    <ul class="footer-nav">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#maintenance">Maintenance</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">&copy; <span id="yr"></span> Black Boxx Vending. All rights reserved.</p>
+  </footer>
+
+  <!-- ====== JS ====== -->
+  <script>
+    // Current year in footer
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      // Toggle clicked
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Nav highlight on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 100) current = section.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = '';
+        if (a.getAttribute('href') === '#' + current) a.style.color = 'var(--gold)';
+      });
+    }, { passive: true });
+
+    // Close mobile nav on link click
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
